@@ -1,0 +1,833 @@
+/* ================================================
+   VALORANT AGENT RECOMMENDER - MASTER STYLESHEET
+   Mobile-First Responsive Design
+   ================================================ */
+
+/* CSS Custom Properties */
+:root {
+  /* Valorant Official Colors */
+  --valorant-bg-primary: #0f1923;
+  --valorant-bg-secondary: #1f2937;
+  --valorant-bg-card: #2a3441;
+  --valorant-red: #FF4655;
+  --valorant-cyan: #67c0c9;
+  --valorant-purple: #9D00FF;
+  --valorant-gold: #b78460;
+  --valorant-green: #00ff88;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --text-accent: #67c0c9;
+  
+  /* Spacing System */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow-red: 0 0 20px rgba(255, 70, 85, 0.3);
+  --shadow-glow-cyan: 0 0 20px rgba(103, 192, 201, 0.3);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Breakpoints (for reference) */
+  --mobile: 320px;
+  --tablet: 768px;
+  --desktop: 1024px;
+  --large: 1440px;
+}
+
+/* ================================================
+   GLOBAL RESET & BASE STYLES
+   ================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--valorant-bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ================================================
+   LAYOUT COMPONENTS
+   ================================================ */
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 70, 85, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(103, 192, 201, 0.08) 0%, transparent 50%),
+    var(--valorant-bg-primary);
+}
+
+.main-content {
+  padding: var(--spacing-md);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ================================================
+   HEADER STYLES
+   ================================================ */
+
+.app-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  padding: var(--spacing-lg) 0;
+}
+
+.app-title {
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--valorant-red), var(--valorant-cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--valorant-red); /* Fallback for unsupported browsers */
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.app-subtitle {
+  font-size: clamp(0.9rem, 3vw, 1.25rem);
+  color: var(--text-secondary);
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ================================================
+   AUDIO CONTROLLER
+   ================================================ */
+
+.audio-controller {
+  position: fixed;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 10000;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(42, 52, 65, 0.9);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 70, 85, 0.3);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-medium);
+  box-shadow: var(--shadow-md);
+}
+
+.audio-controller:hover {
+  border-color: var(--valorant-red);
+  box-shadow: var(--shadow-glow-red);
+  transform: translateY(-2px);
+}
+
+.audio-button {
+  background: none;
+  z-index: 100001;
+  pointer-events: auto;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+}
+
+.audio-button:hover {
+  background: rgba(255, 70, 85, 0.2);
+  color: var(--valorant-red);
+}
+
+.volume-control {
+  width: 60px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.volume-control::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--valorant-red);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-control::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--valorant-red);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* ================================================
+   AGENT GRID LAYOUT
+   ================================================ */
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+  justify-items: center;
+  margin-bottom: var(--spacing-xl);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================
+   AGENT CARDS
+   ================================================ */
+
+.agent-card {
+  background: var(--valorant-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  width: 100%;
+  max-width: 180px;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-md);
+  will-change: transform, box-shadow;
+}
+
+/* Subtle gradient overlay */
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 70, 85, 0.05) 0%, 
+    transparent 50%, 
+    rgba(103, 192, 201, 0.05) 100%);
+  opacity: 0;
+  transition: var(--transition-medium);
+  z-index: 1;
+}
+
+.agent-card:hover::before {
+  opacity: 1;
+}
+
+.agent-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--valorant-red);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow-red);
+}
+
+.agent-card.selected {
+  border-color: var(--valorant-cyan);
+  background: linear-gradient(135deg, 
+    var(--valorant-bg-secondary) 0%,
+    rgba(103, 192, 201, 0.1) 100%);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow-cyan);
+  transform: translateY(-4px);
+}
+
+.agent-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--valorant-cyan);
+  color: var(--valorant-bg-primary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 3;
+}
+
+.agent-card-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.agent-image {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-sm);
+  transition: var(--transition-medium);
+  will-change: transform;
+}
+
+.agent-card:hover .agent-image {
+  transform: scale(1.1);
+}
+
+.agent-name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.agent-role {
+  font-size: 0.85rem;
+  color: var(--text-accent);
+  font-weight: 500;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+/* ================================================
+   BUTTONS
+   ================================================ */
+
+.primary-button {
+  background: linear-gradient(135deg, var(--valorant-red), #dc3545);
+  color: var(--text-primary);
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  min-width: 200px;
+  will-change: transform, box-shadow;
+}
+
+/* Button shimmer effect */
+.primary-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: var(--transition-medium);
+}
+
+.primary-button:hover::before {
+  left: 100%;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow-red);
+}
+
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--text-secondary);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.secondary-button:hover {
+  color: var(--valorant-cyan);
+  border-color: var(--valorant-cyan);
+  background: rgba(103, 192, 201, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ================================================
+   RECOMMENDATION PAGE
+   ================================================ */
+
+.recommendation-container {
+  width: 100%;                 
+  max-width: 800px;             
+  margin: 0 auto;               
+  padding: var(--spacing-md);   
+  box-sizing: border-box;       
+}
+
+
+.recommendation-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--valorant-red);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.recommended-agent {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto var(--spacing-lg);
+  background: var(--valorant-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--valorant-cyan);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow-cyan);
+}
+
+/* Animated border effect */
+.recommended-agent::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 270deg,
+    var(--valorant-cyan) 280deg,
+    var(--valorant-red) 290deg,
+    transparent 300deg
+  );
+  animation: rotate 8s linear infinite;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.recommended-agent-content {
+  position: relative;
+  z-index: 2;
+  background: var(--valorant-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+/* ================================================
+   LOADING STATES
+   ================================================ */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 70, 85, 0.3);
+  border-top: 3px solid var(--valorant-red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ================================================
+   BUTTON CONTAINER
+   ================================================ */
+
+.button-container {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+}
+
+/* ================================================
+   RESPONSIVE DESIGN
+   ================================================ */
+
+/* Mobile Devices (320px - 767px) */
+@media (max-width: 767px) {
+  .main-content {
+    padding: var(--spacing-sm);
+  }
+  
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .agent-card {
+    padding: var(--spacing-sm);
+    max-width: 140px;
+  }
+  
+  .agent-image {
+    max-height: 80px;
+  }
+  
+  .agent-name {
+    font-size: 0.9rem;
+  }
+  
+  .agent-role {
+    font-size: 0.75rem;
+  }
+  
+  .audio-controller {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+  }
+  
+  .volume-control {
+    width: 50px;
+  }
+  
+  .app-header {
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md) 0;
+  }
+  
+  .primary-button {
+    width: 100%;
+    max-width: 280px;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 0.9rem;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .secondary-button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .recommended-agent {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+  
+  .agent-card {
+    max-width: 120px;
+    padding: var(--spacing-xs);
+  }
+  
+  .agent-image {
+    max-height: 70px;
+  }
+  
+  .audio-controller {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: var(--spacing-sm) auto var(--spacing-lg);
+    width: fit-content;
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .main-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .agent-card {
+    max-width: 190px;
+  }
+  
+  .agent-image {
+    max-height: 110px;
+  }
+}
+
+/* Desktop (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .agent-card {
+    max-width: 200px;
+  }
+  
+  .agent-image {
+    max-height: 120px;
+  }
+}
+
+/* Large Desktops (1440px+) */
+@media (min-width: 1440px) {
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-xl);
+  }
+  
+  .main-content {
+    max-width: 1600px;
+  }
+  
+  .agent-card {
+    max-width: 220px;
+    padding: var(--spacing-lg);
+  }
+  
+  .agent-image {
+    max-height: 140px;
+  }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-width: 767px) and (orientation: landscape) {
+  .app-header {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .agent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+  
+  .audio-controller {
+    position: fixed;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .agent-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .recommended-agent::before {
+    animation: none;
+  }
+  
+  .loading-spinner {
+    animation: none;
+    border: 3px solid var(--valorant-red);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --valorant-bg-primary: #000000;
+    --valorant-bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --valorant-red: #ff6b6b;
+    --valorant-cyan: #88ccdd;
+  }
+}
+
+/* ================================================
+   UTILITY CLASSES
+   ================================================ */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================
+   FOCUS STATES FOR ACCESSIBILITY
+   ================================================ */
+
+.agent-card:focus,
+.primary-button:focus,
+.secondary-button:focus,
+.audio-button:focus {
+  outline: 2px solid var(--valorant-cyan);
+  outline-offset: 2px;
+}
+
+/* ================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================ */
+
+.agent-card,
+.primary-button,
+.secondary-button {
+  transform: translateZ(0); /* Enable hardware acceleration */
+}
+
+/* ================================================
+   PRINT STYLES
+   ================================================ */
+
+@media print {
+  .audio-controller,
+  .primary-button,
+  .secondary-button {
+    display: none;
+  }
+  
+  .app-container {
+    background: white;
+    color: black;
+  }
+}
